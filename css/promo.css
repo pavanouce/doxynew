@@ -1,0 +1,59 @@
+.progress { position:relative; width:400px; border: 1px solid #ddd; padding: 1px; border-radius: 3px; }
+.bar { background-color: #B4F5B4; width:0%; height:20px; border-radius: 3px; }
+.percent { position:absolute; display:inline-block; top:3px; left:48%; }
+
+.form-item label.error {display:inline; color:red;}
+.form-item input.error {colo:red;}
+div.image_crop_info {display:none; width:80px;}
+div#preview {float:left; width:100px; height:100px;overflow:hidden;}
+div.submit-promo  {clear:both;}
+div#preview img { width:100px; height:100px;}
+div#tabs-images {width:700px;}
+div.image_crop_info span {font-weight:bold;}
+/*div { border:1px black solid; } */
+div.preview {clear:both;}
+div.promo-node .tabs {height:400px;overflow-y:auto;width: 721px;}
+div.tabs {float:left;}
+.form-item label {display:inline-block; width:150px; text-align:right;}
+.promos-list > .ui-tabs-panel {
+	padding: 0em;
+}
+.promos-list {
+	position: relative;
+	padding-left: 6.5em;
+}
+
+.promos-list .ui-tabs-nav {
+	position: absolute;
+	left: 0.25em;
+	top: 0.25em;
+	bottom: 0.25em;
+	width: 6em;
+}
+
+
+.promos-list .tabs .ui-tabs-nav  {width:auto;position:relative;height: 48px;}
+.promos-list .tabs .ui-tabs-nav ul {position:relative;}
+.promos-list .tabs .ui-tabs-nav li {width:auto;} 
+
+.promos-list .ui-tabs-nav li {
+	right: 1px;
+	width: 100%;
+	border-right: none;
+	border-bottom-width: 1px !important;
+	-moz-border-radius: 4px 4px 4px 4px;
+	-webkit-border-radius: 4px 4px 4px 4px;
+	border-radius: 4px 4px 4px 4px;
+	overflow: hidden;
+	
+}
+
+.promos-list .ui-tabs-nav li.ui-tabs-selected {
+	border-right: 1px solid transparent;
+}
+.promos-list .ui-tabs-nav li a {
+	float: right; width: 100%; text-align: right;
+}
+.promos-list > div {
+	overflow: auto;  margin-left: 10px;
+}
