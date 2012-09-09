@@ -106,10 +106,6 @@ function saveNode($data) {
 	exit;
 }
 
-function getValueFromRequest($key) {
-	return $_POST[$key];
-}
-
 function getImageField($file_drupal_path, $uid, $status=FILE_STATUS_PERMANENT){
 	
   file_copy($file_drupal_path);

@@ -1,3 +1,13 @@
+.promo-list-form { margin-left:20px; height:50px;}
+.promo-list-form .form-item{float:left;width:200px; height:50px;}
+.promo-list-form .form-item label {
+	width:180px;
+	text-align: left;
+	margin-left: 10px;
+}
+.promo-list-form .form-item label.error { display:block; margin-left:2px;}
+
+.promo-list-form div.list-save-wrapper {width:50px;padding-top:10px;}
 .progress { position:relative; width:400px; border: 1px solid #ddd; padding: 1px; border-radius: 3px; }
 .bar { background-color: #B4F5B4; width:0%; height:20px; border-radius: 3px; }
 .percent { position:absolute; display:inline-block; top:3px; left:48%; }
@@ -15,12 +25,26 @@ div.preview {clear:both;}
 div.promo-node .tabs {height:400px;overflow-y:auto;width: 721px;}
 div.tabs {float:left;}
 .form-item label {display:inline-block; width:150px; text-align:right;}
+.form-item.url-link label.new-window {width: 226px;}
+li.list-actions span {display:inline-block;
+	width:30px; height:30px;
+	margin-top:20px;
+	margin-left:75px;
+	background-repeat:no-repeat;
+	background-size:30px 30px;
+}
+li.list-actions span.list-add {
+	background-image:url('../images/Add.png'); cursor:pointer;
+}
+li.list-actions span.list-save {
+	background-image:url('../images/save.gif');
+}
 .promos-list > .ui-tabs-panel {
 	padding: 0em;
 }
 .promos-list {
 	position: relative;
-	padding-left: 6.5em;
+	padding-left: 10.5em;
 }
 
 .promos-list .ui-tabs-nav {
@@ -28,13 +52,14 @@ div.tabs {float:left;}
 	left: 0.25em;
 	top: 0.25em;
 	bottom: 0.25em;
-	width: 6em;
+	width: 10em;
 }
 
 
 .promos-list .tabs .ui-tabs-nav  {width:auto;position:relative;height: 48px;}
 .promos-list .tabs .ui-tabs-nav ul {position:relative;}
-.promos-list .tabs .ui-tabs-nav li {width:auto;} 
+.promos-list .tabs .ui-tabs-nav li {width:auto;margin-top:0em;}
+.promos-list  .ui-tabs-nav li a { text-align:center; width:135px; font-size: 15px; }
 
 .promos-list .ui-tabs-nav li {
 	right: 1px;
@@ -45,15 +70,20 @@ div.tabs {float:left;}
 	-webkit-border-radius: 4px 4px 4px 4px;
 	border-radius: 4px 4px 4px 4px;
 	overflow: hidden;
-	
+	margin-top: 0.3em;
 }
 
 .promos-list .ui-tabs-nav li.ui-tabs-selected {
 	border-right: 1px solid transparent;
 }
-.promos-list .ui-tabs-nav li a {
-	float: right; width: 100%; text-align: right;
+.promos-list .tabs .ui-tabs-nav li a {
+	float: right; width: 100%; text-align: right; font-size:17px;
 }
 .promos-list > div {
-	overflow: auto;  margin-left: 10px;
+	overflow: auto;  margin-left: 10px; 
 }
+
+
+.dialog , .search-bar{ margin-left:auto;margin-right:auto;width:300px;}
+.search-bar input.search-field { margin-right:30px;}
+.dialog table { width:350px; }
