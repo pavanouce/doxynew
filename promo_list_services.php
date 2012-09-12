@@ -19,10 +19,11 @@ function saveNode($data) {
 	}
 	$title = getValueFromRequest('promo-list-title');
 	$content_nids = getValueFromRequest('promo-list-content-nids');
-	$publish = getValueFromRequest('promo-list-publish-on');
-	$unpublish = getValueFromRequest('promo-list-publish-on');
+	$publish = strtotime(getValueFromRequest('promo-list-publish-on'));
+	$unpublish = strtotime(getValueFromRequest('promo-list-unpublish-on'));
+	$nid = getValueFromRequest('promo_list_nid');
 	
-	if($nid) {
+	if(!$nid) {
 		$node = new stdClass();
 		$node->nid = $nid;
 		$node->created = time();
@@ -45,7 +46,7 @@ function saveNode($data) {
     	'publish_on' => $publish,
         'unpublish_on' => $unpublish,
     );
-	
+	//print_r($node);
 	node_save($node);
 	print_r(drupal_to_js(node_load($node->nid)));
 	exit;

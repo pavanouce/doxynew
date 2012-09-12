@@ -21,6 +21,7 @@ function removeEvent(obj, type, fn){
 function isWebKit(){
 	return RegExp(" AppleWebKit/").test(navigator.userAgent);
 }
+
 function ajaxUpload(form,url_action,id_element,html_show_loading,html_error_http){
 	var detectWebKit = isWebKit();
 	form = typeof(form)=="string"?$m(form):form;

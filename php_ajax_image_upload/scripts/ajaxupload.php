@@ -6,6 +6,7 @@
 		$allowed_ext = "jpg,jpeg,gif,png,bmp";
 		$match = "";
 		$top_offset = 0;
+		
 		$filesize = $_FILES[$fileName]['size'];
 		if($filesize > 0){	
 			$filename = strtolower($_FILES[$fileName]['name']);
@@ -181,7 +182,7 @@
 ?>
 
 <?php if($imgUploaded): ?>
-		<img id="main_image" src="<?php echo $upload_image; ?>" border="0"></img>
+		<img class="main_image" src="<?php echo $upload_image; ?>" border="0"></img>
 		<!-- <div id="preview"><img src="<?php echo $upload_image; ?>" border="0"></img></div> -->
 	<?php else: ?>
 		<img src="/php_ajax_image_upload/images/error.gif" width="16" height="16px" border="0" style="marin-bottom: -3px;" /> Error(s) Found:

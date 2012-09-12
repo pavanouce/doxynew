@@ -9,7 +9,7 @@
 		<script src="js/jquery.form.js" type="text/javascript"></script>
 		<script src="js/jquery.jgrowl.js" type="text/javascript"></script>
 		<script src="php_ajax_image_upload/scripts/ajaxupload.js" type="text/javascript"></script>
-		<script src="js/promo.js" type="text/javascript"></script>
+		<script src="js/promo.js?<?php print rand(); ?>" type="text/javascript"></script>
 		<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.23.custom.css"></link>
 		<link rel="stylesheet" type="text/css" href="css/promo.css"></link>
 		<link rel="stylesheet" type="text/css" href="css/jquery.Jcrop.css"></link>

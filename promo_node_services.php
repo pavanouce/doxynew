@@ -35,33 +35,61 @@ function saveNode($data) {
 	$thumbnail_image = getValueFromRequest('thumbnail-image-field');
 	$thumbnail_image_changed = getValueFromRequest('thumbnail-image-field-changed');
 	
-	$publish = getValueFromRequest('publish');
-	$unpublish = getValueFromRequest('unpublish');
+	$publish = strtotime(getValueFromRequest('publish'));
+	$unpublish = strtotime(getValueFromRequest('unpublish'));
 	$url_link = getValueFromRequest('url-link');
 	$url_link_new =  getValueFromRequest('url-link');
 	$seo = getValueFromRequest('seo');
 	$nid = getValueFromRequest('nid');
    
+	$x = getValueFromRequest('x1');
+	$y = getValueFromRequest('y1');
+	$w = getValueFromRequest('width');
+	$h = getValueFromRequest('height');
+	
+	$tx1 = getValueFromRequest('tx1');
+	$ty1 = getValueFromRequest('ty1');
+	$tx2 = getValueFromRequest('tx2');
+	$ty2 = getValueFromRequest('ty2');
+	
+	$weight = getValueFromRequest('weight');
 	
 	
-	
-	if($nid) {
+	if(!$nid) {
 		$node = new stdClass();
 		$node->nid = $nid;
 		$node->created = time();
 	} else {
 		$node = node_load($nid);
 	}
+
+	$defaults = array(
+	    'x'       => $x?$x:0,
+	    'y'       => $y?$y:0,
+	    'width'   => $w ? $w : 50,
+	    'height'  => $h ? $h : 50,
+	    'changed' => 1,
+  	);
 	
-	if(!empty($main_image) && $main_image_changed && $main_image_changed="true") {
+	if(!empty($main_image) && $main_image_changed && $main_image_changed=="true") {
 		$main_image = UPLOAD_ROOT.DIRECTORY_SEPARATOR.
-					   basename(str_ireplace("http:/","",$main_image));
-		$node->field_image_promo = array(getImageField($main_image, $user->uid));
-	} 
+					   basename(str_ireplace("http:/","",
+					   str_replace(".crop_display.jpg","",$main_image)));
+		$file = array(getImageField($main_image, $user->uid));
+		$node->field_promo_main_image = $file;
+		$node->field_promo_main_image[0]['data']['crop'] = $defaults;
+		imagefield_crop_file_insert((object)$file[0]);
+	}  else if($node->field_promo_main_image) {
+		//print_r($node->field_promo_main_image);
+		$node->field_promo_main_image[0]['data']['crop'] = $defaults;
+	}
 	if(!empty($thumbnail_image) && $thumbnail_image_changed && $thumbnail_image_changed=="true") {
 		$thumbnail_image = UPLOAD_ROOT.DIRECTORY_SEPARATOR.
 					   basename(str_ireplace("http:/","",$thumbnail_image));
-		$node->field_promo_main_image = array(getImageField($thumbnail_image, $user->uid));
+		$node->field_image_promo = array(getImageField($thumbnail_image, $user->uid));
+	}
+	if($node->field_image_promo) {
+		$node->field_image_promo[0]['data']['focus_rect'] = implode(',',array($tx1,$ty1,$tx2,$ty2));
 	}
 	
 	$node->type = 'promo_homepage'; 
@@ -76,13 +104,14 @@ function saveNode($data) {
                     'url' => $url_link,
                     'title' => '', 
                     'attributes' => Array('target' => ($url_link_new == 'on')?'':'_blank')));
-    $node->field_promo_order = Array(Array('value' => 5));
+    $node->field_promo_order = Array(Array('value' => $weight));
     $node->field_promo_sub_header = Array(Array('value' => $sub_header_title));
     $node->field_promo_title = Array(Array('value' => $seo));
     $node->field_short_description = Array(Array('value' => $short_description));
     $node->field_short_title = Array(Array('value' => $short_title));
 	$node->field_show_css = Array(Array('value' => $show_css));
 	$node->field_tune_text = Array(Array('value' => $tunein_title));
+	$node->field_promo_type = array(array('value'=>$promo_type));
 	$node->publish_on = $publish;
     $node->unpublish_on = $unpublish;
     $node->scheduler = Array (
@@ -100,9 +129,10 @@ function saveNode($data) {
 	
     $node->taxonomy =  array($promo_type => $promo_type_taxonomy_class,
 						     $show_id => $show_id_taxonomy_class);
-	
+	//print_r($node);
 	node_save($node);
-	print_r(drupal_to_js(node_load($node->nid)));
+	//print_r(drupal_get_messages());
+	print_r(str_replace("\\'","'",drupal_to_js(node_load($node->nid))));
 	exit;
 }
 
