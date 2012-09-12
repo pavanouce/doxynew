@@ -120,11 +120,11 @@ function saveNode($data) {
     );
     
 	$promo_type_taxonomy_class = new stdClass();
-	$promo_type_taxonomy_class->tid = $promo_type;
+	$promo_type_taxonomy_class->tid = 1333;
 	$promo_type_taxonomy_class->vid = 4;
 	
 	$show_id_taxonomy_class = new stdClass();
-	$show_id_taxonomy_class->tid = $show_id;
+	$show_id_taxonomy_class->tid = 1339;
 	$show_id_taxonomy_class->vid = 5;
 	
     $node->taxonomy =  array($promo_type => $promo_type_taxonomy_class,

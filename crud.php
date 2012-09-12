@@ -52,8 +52,13 @@
 		<?php if(empty($nodes)):?>
 			<ul class="list-tabs-container">
 				<li class="list-element"><a href="#node-promo-1" data-tab-id="1" data-nid="1">Promo 1</a></li>
-				<li class="list-actions">
+				<li class="list-actions add-existing">
 					<span title="Add another promo" class="list-add"></span>
+					<span class="label">Add Existing</span>
+				</li>
+				<li class="list-actions add-new">
+					<span title="Add another promo" class="list-add"></span>
+					<span class="label">Add New</span>
 				</li>
 			</ul>
 			

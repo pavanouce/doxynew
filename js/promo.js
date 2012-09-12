@@ -12,7 +12,27 @@ $(document).ready(function (loadEvent) {
 	initSorts();
 	initAddNode();
 });
-
+/*
+function initImageUploaders() {
+	$('button.image_upload_button').click(function(event){
+		data = $(this).attr('data-onclick');
+		filename = $(this).attr('data-filename');
+		
+		ajaxUpload($(this).parent(),
+				'php_ajax_image_upload/scripts/ajaxupload.php?filename=' + filename +'&amp;' +
+				'maxSize=9999999999&amp;maxW=1200&amp;fullPath=http://' +
+				 window.location.host  + '/oxypromo/php_ajax_image_upload/uploads/&amp;' +
+				 'relPath=../uploads/&amp; +
+				 'colorR=255&amp;colorG=255&amp;colorB=255&amp;maxH=1200',
+				 data,
+				'File Uploading Please Wait...&lt;br /&gt;&lt;img src=\'images/loader_light_blue.gif\' ' +
+				'width=\'128\' height=\'15\' border=\'0\' /&gt;','&lt;img src=\'images/error.gif\' ' +
+				'width=\'16\' height=\'16\' border=\'0\' /&gt; Error in Upload, check settings and path info' +
+				'in source code.'); 
+		event.preventDefault();
+	});
+}
+*/
 function initAddNode() {
 	tabid = parseInt($('input.nodes_count').val());
 	$('li.list-actions').button();
@@ -83,6 +103,7 @@ function initSearch() {
 	searchdialogbox.dialog({autoOpen: false,height:400,width:500 });
 	
 	$('li.add-existing').click(function(clickEvent) {
+		searchdialogbox.html(getSearchDialogContent());
 		searchdialogbox.dialog('open');
 		clickEvent.preventDefault();
 		$("button.search").click(function(buttonClick) {
@@ -395,5 +416,11 @@ function addNodeActions(nid) {
 	//$('.new-window-check').button();
 	$('div.submit-promo input').button();
 	//setListContents(nid);
-	submitHandlers();
+	
+	initDatePickers();
+	initValidation();
+	initImage();
+	submitHandlers();	
+	initJcrop();
+	//initSorts();
 }
