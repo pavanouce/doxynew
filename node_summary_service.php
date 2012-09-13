@@ -1,0 +1,12 @@
+<?php
+require_once 'bootstrap.php';
+if(isset($_GET['nid'])){
+	$node = node_load($_GET['nid']);
+	$tabid = 0;
+} else {
+	$tabid = $_GET['tabid'];
+	$node = new stdClass();
+}
+print render_file('includes'.DIRECTORY_SEPARATOR.'node-summary.php',
+	 array('node'=>$node,'tabid'=>$tabid));
+?>
