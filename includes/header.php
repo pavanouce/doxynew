@@ -14,5 +14,13 @@
 		<link rel="stylesheet" type="text/css" href="css/promo.css"></link>
 		<link rel="stylesheet" type="text/css" href="css/jquery.Jcrop.css"></link>
 		<link rel="stylesheet" type="text/css" href="css/jquery.jgrowl.css"></link>
+		
+		<!--  Promo preview css/js -->
+		<link rel="stylesheet" type="text/css" href="/<?php print drupal_get_path('module','homepage_promo')."/css/promo.css"; ?>"></link>
+		<link rel="stylesheet" type="text/css" href="/<?php print drupal_get_path('module','homepage_promo')."/css/promo-node-view.css"; ?>"></link>
+		<link rel="stylesheet" type="text/css" href="css/jquery.jgrowl.css"></link>
+		<script src="/<?php print drupal_add_js(drupal_get_path('module','homepage_promo')."/js/promo-block.js"); ?>" type="text/javascript"></script>
+
+
 	</head>
 	<body>

@@ -310,8 +310,10 @@ if(isset($node->nid)) {
 		</div>
 	</form>
 	<div class="preview">
-		<div class="preview-label">Live Preview</div>
-		<img src="images/oxy1.png" />
+		<?php if($nid): ?>
+		<?php print render_file('../sites/all/themes/oxygenhomepage/node-promo_homepage.tpl.php'
+		,array('node'=>$node)); ?>
+		<?php endif; ?>
 	</div>
 </div>
 						<?php

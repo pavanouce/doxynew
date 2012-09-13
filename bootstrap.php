@@ -11,5 +11,7 @@ chdir('../');
 require_once './includes/bootstrap.inc';
 drupal_bootstrap(DRUPAL_BOOTSTRAP_FULL);
 
+$GLOBALS['base_path']="/";
+
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');

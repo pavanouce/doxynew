@@ -2,6 +2,7 @@ var imagedialogbox;
 var savedialogbox;
 var searchdialogbox;
 var tabid;
+var node_data;
 $(document).ready(function (loadEvent) {
 	initTabs();
 	initDatePickers();
@@ -45,8 +46,16 @@ function initAddNode() {
 			success:function(response) {
 				var new_content = response;
 				$('.promo-node').last().after(new_content);
-				 var lihtml = '<li class="list-element"><a href="#node-promo-'+tabid+'" data-tab-id="'+tabid+'" '+
-				 			  'data-nid="'+tabid+'">Promo  '+tabid+'</a></li>';
+				$.ajax({
+					url: "node_summary_service.php?tabid=" + tabid,
+					type: "GET",
+					async:false,
+					dataType: "html",
+					success:function(response) {
+						node_data= response;
+					}
+				});
+				 var lihtml = '<li class="list-element">'+node_data+'</li>';
 				$('li.list-element').last().after(lihtml);
 				addNodeActions(tabid);
 			},
@@ -163,8 +172,17 @@ function addExistingNodeEvent() {
 			success:function(response) {
 				var new_content = response;
 				$('.promo-node').last().after(new_content);
-				 var lihtml = '<li class="list-element"><a href="#node-promo-'+nid+'" data-tab-id="'+nid+'" '+
-				 			  'data-nid="'+nid+'">Promo (nid: '+nid+')</a></li>';
+				
+				$.ajax({
+					url: "node_summary_service.php?nid=" + nid,
+					type: "GET",
+					async:false,
+					dataType: "html",
+					success:function(response) {
+						node_data= response;
+					}
+				});
+				 var lihtml = '<li class="list-element">' + node_data + '</li>';
 				$('li.list-element').last().after(lihtml);
 				addNodeActions(nid);
 			},
@@ -173,6 +191,19 @@ function addExistingNodeEvent() {
 			}
 		});
 	});
+}
+
+function updatePreview(nid) {
+	$.ajax({
+		url: "node-preview.php?nid=" + nid,
+		type: "GET",
+		dataType: "html",
+		success:function(response) {
+			$("#node-promo-"+nid + " div.preview").html(response);
+		}
+	});
+	
+	$.jGrowl("Preview for this Node: " + nid  + " is updated.!" );
 }
 
 function submitHandlers(){
@@ -207,20 +238,30 @@ function submitHandlers(){
 	    },
 	    success: function(data, statusText, xhr, $form) {
 	    	savedialogbox.dialog('close');
-			console.log(data);
+			//console.log(data);
 			$('.node-id', $form).val(data.nid);
 			//setListContents(data.nid); 
 			var old_id = $form.attr('data-nid');
 			$form.attr('data-nid',data.nid);
 			
-			var html = $('li a[data-nid='+old_id+']').html();
-			if(html.indexOf(data.nid)==-1){
-				html = html.slice(0,-2);
-				html += ' (nid:' +  data.nid + ')';
-				$('li a[data-nid='+old_id+']').html(html);
-				$('li a[data-nid='+old_id+']').attr('data-nid',data.nid);
-			}
+			$.ajax({
+				url: "node_summary_service.php?nid=" + data.nid,
+				type: "GET",
+				async:false,
+				dataType: "html",
+				success:function(response) {
+					node_data= response;
+				}
+			});
+			
+			
+			$('li a[data-nid='+old_id+']').parent().html(node_data);
+				//$('li a[data-nid='+old_id+']').attr('data-nid',data.nid);
+			addNodeActions(data.nid);
+			
 			$.jGrowl("Promo Node Successfully Saved with nid: "+ data.nid );
+			updatePreview(data.nid);
+			
 	    },
 		complete: function(xhr) {
 			
@@ -324,10 +365,22 @@ function initTabs() {
 }
 
 function initDatePickers() {
-	$('input.edit-publish').datetimepicker();
-	$('input.edit-unpublish').datetimepicker();
-	$('input#promo-list-publish-on').datetimepicker();
-	$('input#promo-list-unpublish-on').datetimepicker();
+	$('input.edit-publish').datetimepicker({minDate: new Date()});
+	$('input.edit-unpublish').datetimepicker({minDate: new Date()});
+	$('input#promo-list-publish-on').datetimepicker({minDate: new Date()})
+						.change(function(changeEvent) {
+								var self = this;
+								if($(self).val()!="") {
+									$("input.edit-publish").val($(self).val());
+								}
+						});
+	$('input#promo-list-unpublish-on').datetimepicker({minDate: new Date()}).
+						change(function(changeEvent) {
+								var self = this;
+								if($(self).val()!="") {
+									$("input.edit-unpublish").val($(self).val());
+								}
+						});
 }
 
 function uploadActions(element) {
@@ -422,5 +475,7 @@ function addNodeActions(nid) {
 	initImage();
 	submitHandlers();	
 	initJcrop();
+	$('input#promo-list-publish-on').change();
+	$('input#promo-list-unpublish-on').change();
 	//initSorts();
 }

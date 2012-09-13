@@ -19,7 +19,7 @@
 	} 
 ?>
 <div class="content">
-	<form method="POST" class="promo-list-form" id="promo-list-form" action="promo_list_services.php">
+	<form method="POST" class="promo-list-form ui-widget-header " id="promo-list-form" action="promo_list_services.php">
 			<input id="promo_list_nid" type="hidden" name="promo_list_nid" value="<?php print $nid; ?>"></input>
 			<input type="hidden" name="promo-list-content-nids"
 			 id="promo-list-content-nids" value="<?php print $content_nids; ?>"></input>
@@ -51,7 +51,11 @@
 		<div style="clear:both"></div>
 		<?php if(empty($nodes)):?>
 			<ul class="list-tabs-container">
-				<li class="list-element"><a href="#node-promo-1" data-tab-id="1" data-nid="1">Promo 1</a></li>
+				<li class="list-element">
+					<?php $node = new stdClass(); ?>
+					<?php print render_file('includes'.DIRECTORY_SEPARATOR.'node-summary.php', 
+						array('node'=>$node,'tabid'=>1)); ?>
+				</li>
 				<li class="list-actions add-existing">
 					<span title="Add another promo" class="list-add"></span>
 					<span class="label">Add Existing</span>
@@ -71,8 +75,8 @@
 			<ul class="list-tabs-container">
 			<?php foreach($nodes as $node): ?>
 			<?php $nid = $node->nid; ?>
-				<li class="list-element"><a data-nid="<?php print $nid; ?>" data-tab-id="<?php print $nid; ?>"
-				 href="#node-promo-<?php print $nid; ?>">Promo (nid: <?php print $nid; ?>)</a>
+				<li class="list-element">
+					<?php print render_file('includes'.DIRECTORY_SEPARATOR.'node-summary.php', array('node'=>$node)); ?>
 				 </li>
 			<?php endforeach; ?>
 				<li class="list-actions add-existing">
