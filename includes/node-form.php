@@ -16,7 +16,7 @@ $promo_type= "";
 $show_id = "";
 $show_css = "";
 $url_new_window = false;
-$format = "Y-m-d H:i:s";
+$format = "m/d/Y H:i";
 $field_values = getFieldValues('field_promo_type');
 $main_image = null;
 $main_image_x1 = 0;
@@ -255,11 +255,17 @@ if(isset($node->nid)) {
 			<div id="tabs-scheduling-<?php print $data_tab_id; ?>">
 				<div class="form-item promo-publish">
 					<label>Publish Date:</label> <input type="text"
+						<?php if(!empty($publish_date)): ?>
+						data-value="true"
+						<?php endif; ?>
 						class="edit-publish" value="<?php print $publish_date; ?>"
 						name="publish"></input>
 				</div>
 				<div class="form-item promo-unpublish">
 					<label>Un-Publish Date:</label> <input type="text"
+						<?php if(!empty($unpublish_date)): ?>
+						data-value="true"
+						<?php endif; ?>
 						value="<?php print $unpublish_date; ?>" class="edit-unpublish"
 						name="unpublish"></input>
 				</div>
@@ -306,7 +312,7 @@ if(isset($node->nid)) {
 			</div>
 		</div>
 		<div class="submit-promo">
-			<input type="submit" value="Save Promo"></input>
+			<input type="submit" value="Save Promo" class="node-save"></input>
 		</div>
 	</form>
 	<div class="preview">

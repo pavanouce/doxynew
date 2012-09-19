@@ -58,7 +58,7 @@ function ajaxUpload(form,url_action,id_element,html_show_loading,html_error_http
         }else{
         	setTimeout(function(){ remove($m('ajax-temp'))}, 250);
         }
-		uploadActions(id_element);
+		setTimeout(function(){ uploadActions(id_element)}, 250);	
     }
 	addEvent($m('ajax-temp'),"load", doUpload);
 	form.setAttribute("target","ajax-temp");

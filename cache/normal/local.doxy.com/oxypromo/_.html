@@ -1,158 +1,386 @@
 <html>
 	<head>
 		<title>New Promo Page Design</title>
-		<script src="js/jquery-1.8.0.min.js" type="text/javascript"></script>
-		<script src="js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
-		<script src="js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
-		<script src="js/jquery.validate.js" type="text/javascript"></script>
-		<script src="js/jquery.Jcrop.min.js" type="text/javascript"></script>
-		<script src="js/jquery.form.js" type="text/javascript"></script>
-		<script src="js/jquery.jgrowl.js" type="text/javascript"></script>
-		<script src="php_ajax_image_upload/scripts/ajaxupload.js" type="text/javascript"></script>
-		<script src="js/promo.js" type="text/javascript"></script>
-		<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.23.custom.css"></link>
-		<link rel="stylesheet" type="text/css" href="css/promo.css"></link>
-		<link rel="stylesheet" type="text/css" href="css/jquery.Jcrop.css"></link>
-		<link rel="stylesheet" type="text/css" href="css/jquery.jgrowl.css"></link>
+		<script src="/oxypromo/js/jquery-1.8.0.min.js" type="text/javascript"></script>
+		<script src="/oxypromo/js/jquery-ui-1.8.23.custom.min.js" type="text/javascript"></script>
+		<script src="/oxypromo/js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
+		<script src="/oxypromo/js/jquery.validate.js" type="text/javascript"></script>
+		<script src="/oxypromo/js/jquery.Jcrop.min.js" type="text/javascript"></script>
+		<script src="/oxypromo/js/jquery.form.js" type="text/javascript"></script>
+		<script src="/oxypromo/js/jquery.jgrowl.js" type="text/javascript"></script>
+		<script src="/oxypromo/php_ajax_image_upload/scripts/ajaxupload.js" type="text/javascript"></script>
+		<script src="/oxypromo/js/promo.js?29984" type="text/javascript"></script>
+		<link rel="stylesheet" type="text/css" href="/oxypromo/css/jquery-ui-1.8.23.custom.css"></link>
+		<link rel="stylesheet" type="text/css" href="/oxypromo/css/promo.css?1"></link>
+		<link rel="stylesheet" type="text/css" href="/oxypromo/css/jquery.Jcrop.css"></link>
+		<link rel="stylesheet" type="text/css" href="/oxypromo/css/jquery.jgrowl.css"></link>
+		
+		<!--  Promo preview css/js -->
+		<link rel="stylesheet" type="text/css" href="/sites/all/modules/homepage_promo/css/promo.css"></link>
+		<link rel="stylesheet" type="text/css" href="/sites/all/modules/homepage_promo/css/promo-node-view.css"></link>
+		<link rel="stylesheet" type="text/css" href="/oxypromo/css/jquery.jgrowl.css"></link>
+		<!-- 
+		<script type="text/javascript" src="/sites/all/themes/oxygenhomepage/js/jquery.cycle.all.js"></script>
+		<script src="/sites/all/modules/homepage_promo/js/promo-block.js" type="text/javascript"></script>
+		 -->
+
 	</head>
-	<body>
-<div class="content">
+	<body><div class="content">
+	<form method="POST" class="promo-list-form ui-widget-header " id="promo-list-form" action="promo_list_services.php">
+			<input id="promo_list_nid" type="hidden" name="promo_list_nid" value=""></input>
+			<input type="hidden" name="promo-list-content-nids"
+			 id="promo-list-content-nids" value=""></input>
+			 <input type="hidden" name="nodes_count" 
+			 value="1" class="nodes_count"></input>
+			<div class="form-item list-save-wrapper">
+				<input src="images/save.gif" title="Save this list" type="image" class="list-save"></input>
+			</div>
+			<div class="form-item promo-list-title-wrapper">
+				<label class="promo-list-title">Title</label>
+				<input class="required" type="text" name="promo-list-title"
+					value="" id="promo-list-title"></input>	
+			</div>
+			<div class="form-item promo-list-publish-on-wrapper">
+				<label class="promo-list-title">Scheduled Publish</label>
+				<input type="text" name="promo-list-publish-on"
+					value="" id="promo-list-publish-on"></input>
+			</div>
+			
+			<div class="form-item promo-list-unpublish-on-wrapper">
+				<label class="promo-list-title">Scheduled Unpublish</label>
+				<input type="text" name="promo-list-unpublish-on"
+				value="" id="promo-list-unpublish-on"></input>
+			</div>
+			<input type="submit" class="list-save-preview" value="Save and preview"></input>
+		</form>
 	<div class="promos-list">
-					<ul>
-				<li><a href="#node-promo-1">Promo 1</a></li>
-				<li class="list-actions">
+		
+		<div style="clear:both"></div>
+					<ul class="list-tabs-container">
+				<li class="list-element">
+											<a href="#node-promo-1" 
+	data-tab-id="1" data-nid="1">Promo 1	<span title="remove" class="remove-promo"></span>
+	</a>
+				</li>
+				<li class="list-actions add-existing">
 					<span title="Add another promo" class="list-add"></span>
-					<span title="Save this list" class="list-save"></span>
+					<span class="label">Add Existing</span>
+				</li>
+				<li class="list-actions add-new">
+					<span title="Add another promo" class="list-add"></span>
+					<span class="label">Add New</span>
 				</li>
 			</ul>
 			
 			<div id="node-promo-1" class="promo-node">
-	<form action="services.php" method="post" name="promo_list"
-		id="promo_list" enctype="multipart/form-data">
-		<input type="hidden" value="" name="nid" class="node-id"></input>
+	<form data-nid="1"
+		action="promo_node_services.php" method="post" name="promo_list"
+		class="promo_list" enctype="multipart/form-data">
+		<input type="hidden" value="" name="nid"
+			class="node-id"></input>
+		<input type="hidden" value="0" name="weight" class="node-weight"></input>
 		<div class="tabs">
 			<ul>
-				<li><a href="#tabs-fields">Promo Fields</a>
+				<li><a href="#tabs-fields-1">Promo Fields</a>
 				</li>
-				<li><a href="#tabs-image-main">Main Image</a>
+				<li><a href="#tabs-image-main-1">Main
+						Image</a>
 				</li>
-				<li><a href="#tabs-image-thumbnail">Thumbnail Image</a>
+				<li><a href="#tabs-image-thumbnail-1">Thumbnail
+						Image</a>
 				</li>
-				<li><a href="#tabs-scheduling">Scheduling</a>
+				<li><a href="#tabs-scheduling-1">Scheduling</a>
 				</li>
-				<li><a href="#tabs-url">URL</a>
+				<li><a href="#tabs-url-1">URL</a>
 				</li>
 			</ul>
-			<div id="tabs-fields">
+			<div id="tabs-fields-1">
 				<div class="form-item promo-title-wrapper">
 					<label>Title</label> <input type="text" class="required"
-						name="promo-title"></input>
+						name="promo-title" value=""></input>
 				</div>
 				<div class="form-item  promo-big-title-wrapper">
-					<label>Big Title</label> <input type="text" class="required"
-						name="promo-big-title"></input>
+					<label>Big Title</label> <input type="text" 
+						value="" name="promo-big-title"></input>
 				</div>
 				<div class="form-item promo-short-title-wrapper">
-					<label>Short Title</label> <input type="text" class="required"
-						name="promo-short-title"></input>
+					<label>Short Title</label> <input type="text" 
+						value="" name="promo-short-title"></input>
 				</div>
 				<div class="form-item promo-link-text-wrapper">
-					<label>Promo Link Text</label> <input type="text" class="required"
-						name="promo-link-text"></input>
+					<label>Promo Link Text</label> <input type="text"
+						value="" name="promo-link-text"></input>
 				</div>
 				<div class="form-item promo-short-desc-wrapper">
 					<label>Short Description</label> <input type="text"
-						class="required" name="promo-short-desc"></input>
+						value="" 
+						name="promo-short-desc"></input>
 				</div>
 				<div class="form-item promo-tunein-text-wrapper">
-					<label>Tune in Text</label> <input type="text" class="required"
-						name="promo-tunein-text"></input>
+					<label>Tune in Text</label> <input type="text" 
+						value="" name="promo-tunein-text"></input>
 				</div>
 				<div class="form-item promo-sub-header-wrapper">
-					<label>Sub Header</label> <input type="text" class="required"
-						name="sub-header"></input>
+					<label>Sub Header</label> <input type="text" 
+						value="" name="sub-header"></input>
 				</div>
 
 
 			</div>
-			<div class="image_upload" id="tabs-image-main">
-				<button data-form-id="main_image_upload">Upload Image</button>
-				<input data-id="main_image_upload_area" class="required"
-					type="hidden" id="main-image-field" name="main-image-field"
-					value="" /> <input data-value-id="main_image_upload_area"
+			<div class="image_upload"
+				id="tabs-image-main-1">
+				<button
+					data-form-id="main_image_upload-1">Upload
+					Image</button>
+				<input data-id="main_image_upload_area-1"
+					class="main-image-field" type="hidden"
+					name="main-image-field" value="" /> <input
+					data-value-id="main_image_upload_area-1"
 					type="hidden" name="main-image-field-changed" value="false" />
-				<div id="main_image_upload_area"></div>
-				<div class="image_crop_info x1_area">
-					x1: <span></span>
-				</div>
-				<div class="image_crop_info y1_area">
-					y1: <span></span>
-				</div>
-				<div class="image_crop_info x2_area">
-					x2: <span></span>
-				</div>
-				<div class="image_crop_info y2_area">
-					y2: <span></span>
-				</div>
-				<div class="image_crop_info width_area">
-					w: <span></span>
-				</div>
-				<div class="image_crop_info height_area">
-					h: <span></span>
+				<div class="image_area" id="main_image_upload_area-1">
+									</div>
+				<div class="crop-info">
+					<div class="image_crop_info x1_area">
+						<label>x1:</label> <input type="text" name="x1" class="x1" 
+						value="0" /></input>
+					</div>
+					<div class="image_crop_info y1_area">
+						<label>y1:</label> <input type="text" name="y1" class="y1"
+						 value="0" /></input>
+					</div>
+					<div class="image_crop_info x2_area">
+						<label>x2:</label> <input type="text" name="x2" class="x2"
+						 value="0" /></input>
+					</div>
+					<div class="image_crop_info y2_area">
+						<label>y2:</label> <input type="text" name="y2" class="y2" 
+						value="0" /></input>
+					</div>
+					<div class="image_crop_info width_area">
+						<label>w :</label> <input type="text" name="width" class="width" 
+						value="0" /></input>
+					</div>
+					<div class="image_crop_info height_area">
+						<label>h :</label> <input type="text" name="height" class="height"
+							value="0" /></input>
+					</div>
 				</div>
 			</div>
-			<div class="image_upload" id="tabs-image-thumbnail">
-				<button data-form-id="thumbnail_image_upload">Upload Image</button>
-				<input data-id="thumbnail_image_upload_area" class="required"
-					type="hidden" id="thumbnail-image-field"
+			<div class="image_upload"
+				id="tabs-image-thumbnail-1">
+				<button
+					data-form-id="thumbnail_image_upload-1">Upload
+					Image</button>
+				<input
+					data-id="thumbnail_image_upload_area-1"
+					class="thumbnail-image-field" type="hidden"
 					name="thumbnail-image-field" value="" /> <input
-					data-value-id="thumbnail_image_upload_area" type="hidden"
-					name="thumbnail-image-field-changed" value="false" />
-				<div id="thumbnail_image_upload_area"></div>
-				<div class="image_crop_info x1_area">
-					x1: <span></span>
-				</div>
-				<div class="image_crop_info y1_area">
-					y1: <span></span>
-				</div>
-				<div class="image_crop_info x2_area">
-					x2: <span></span>
-				</div>
-				<div class="image_crop_info y2_area">
-					y2: <span></span>
-				</div>
-				<div class="image_crop_info width_area">
-					w: <span></span>
-				</div>
-				<div class="image_crop_info height_area">
-					h: <span></span>
+					data-value-id="thumbnail_image_upload_area-1"
+					type="hidden" name="thumbnail-image-field-changed" value="false" />
+				<div class="image_area" id="thumbnail_image_upload_area-1">
+									</div>
+				<div class="crop-info">
+					<div class="image_crop_info x1_area">
+						<label>x1:</label> <input type="text" name="tx1" class="x1" 
+						value="0" /></input>
+					</div>
+					<div class="image_crop_info y1_area">
+						<label>y1:</label> <input type="text" name="ty1" class="y1" 
+						value="0" /></input>
+					</div>
+					<div class="image_crop_info x2_area">
+						<label>x2:</label> <input type="text" name="tx2" class="x2" 
+						value="0" /></input>
+					</div>
+					<div class="image_crop_info y2_area">
+						<label>y2:</label> <input type="text" name="ty2" class="y2" 
+						value="0" /></input>
+					</div>
+					<div class="image_crop_info width_area">
+						<label>w :</label> <input type="text" name="twidth" class="width" 
+						value="0" /></input>
+					</div>
+					<div class="image_crop_info height_area">
+						<label>h :</label> <input type="text" name="theight" class="height"
+							value="0" /></input>
+					</div>
 				</div>
 			</div>
-			<div id="tabs-scheduling">
+			<div id="tabs-scheduling-1">
 				<div class="form-item promo-publish">
-					<label>Publish Date:</label> <input type="text" id="edit-publish"
+					<label>Publish Date:</label> <input type="text"
+												class="edit-publish" value=""
 						name="publish"></input>
 				</div>
 				<div class="form-item promo-unpublish">
 					<label>Un-Publish Date:</label> <input type="text"
-						id="edit-unpublish" name="unpublish"></input>
+												value="" class="edit-unpublish"
+						name="unpublish"></input>
 				</div>
 			</div>
-			<div id="tabs-url">
+			<div id="tabs-url-1">
 				<div class="form-item url-link">
-					<label>URL Link</label> <input type="text" name="url-link"></input>
-					<input class="new-window-check" id="check-" type="checkbox" name="url-link-new"></input>
-					<label class="new-window" for="check-">Open in New Window?</label>
+					<label>URL Link</label> <input value=""
+						type="text" name="url-link"></input> <input
+						class="new-window-check" class="check-"
+						type="checkbox"  name="url-link-new"></input> <label
+						class="new-window" for="check-">Open in New
+						Window?</label>
 				</div>
 				<div class="form-item promo-seo-wrapper">
-					<label>SEO</label> <input type="text" name="seo"></input>
+					<label>SEO</label> <input value="" type="text"
+						name="seo"></input>
 				</div>
 				<div class="form-item promo-type-wrapper">
-					<label>Promo Type</label> <select name="promo-type">
-						<option value="10">THE GLEE PROJECT</option>
-						<option value="11">BAD GIRLS CLUB</option>
-						<option value="12">WHATEVER</option>
-					</select>
+					<label>Promo Type</label> <select class="required"
+						name="promo-type">
+												<option  value="- None -">
+							- None -						</option>
+												<option  value="All About Aubrey:">
+							All About Aubrey:						</option>
+												<option  value="All The Right Moves:">
+							All The Right Moves:						</option>
+												<option  value="ANTM:">
+							ANTM:						</option>
+												<option  value="ANTM all-day marathon:">
+							ANTM all-day marathon:						</option>
+												<option  value="Aubrey O'Day:">
+							Aubrey O'Day:						</option>
+												<option  value="Bachelorette Party:">
+							Bachelorette Party:						</option>
+												<option  value="Bachelorette Party Las Vegas:">
+							Bachelorette Party Las Vegas:						</option>
+												<option  value="Bad Girls Club:">
+							Bad Girls Club:						</option>
+												<option  value="Bad Girls Club Afterparty:">
+							Bad Girls Club Afterparty:						</option>
+												<option  value="Bad Girls Club Las Vegas:">
+							Bad Girls Club Las Vegas:						</option>
+												<option  value="Bad Girls Club Mexico:">
+							Bad Girls Club Mexico:						</option>
+												<option  value="Bad Girls Club New Orleans:">
+							Bad Girls Club New Orleans:						</option>
+												<option  value="Battleship:">
+							Battleship:						</option>
+												<option  value="Best Ink:">
+							Best Ink:						</option>
+												<option  value="Best Night Ever:">
+							Best Night Ever:						</option>
+												<option  value="BLOG:">
+							BLOG:						</option>
+												<option  value="Brooklyn 11223:">
+							Brooklyn 11223:						</option>
+												<option  value="Dance Your A** Off:">
+							Dance Your A** Off:						</option>
+												<option  value="Earth Week:">
+							Earth Week:						</option>
+												<option  value="EXCLUSIVE:">
+							EXCLUSIVE:						</option>
+												<option  value="Fitness Tips:">
+							Fitness Tips:						</option>
+												<option  value="Flo Gets Married:">
+							Flo Gets Married:						</option>
+												<option  value="Full Episodes:">
+							Full Episodes:						</option>
+												<option  value="Games:">
+							Games:						</option>
+												<option  value="Girlfriend Confidential: LA:">
+							Girlfriend Confidential: LA:						</option>
+												<option  value="Glee:">
+							Glee:						</option>
+												<option  value="Good2Go:">
+							Good2Go:						</option>
+												<option  value="Green Week:">
+							Green Week:						</option>
+												<option  value="Hair Battle Spectacular:">
+							Hair Battle Spectacular:						</option>
+												<option  value="House of Glam:">
+							House of Glam:						</option>
+												<option  value="House:">
+							House:						</option>
+												<option  value="HOT:">
+							HOT:						</option>
+												<option  value="I’m Having Their Baby:">
+							I’m Having Their Baby:						</option>
+												<option  value="Jersey Couture:">
+							Jersey Couture:						</option>
+												<option  value="Love Games:">
+							Love Games:						</option>
+												<option  value="Love Scouts:">
+							Love Scouts:						</option>
+												<option  value="MakeOvermatic:">
+							MakeOvermatic:						</option>
+												<option  value="MEETUP:">
+							MEETUP:						</option>
+												<option  value="My Shopping Addiction:">
+							My Shopping Addiction:						</option>
+												<option  value="Obsessed:">
+							Obsessed:						</option>
+												<option  value="OxygenLive:">
+							OxygenLive:						</option>
+												<option  value="OxygenLive: BGC">
+							OxygenLive: BGC						</option>
+												<option  value="OxygenLive: Hair Battle">
+							OxygenLive: Hair Battle						</option>
+												<option  value="OxygenLive: Obsessed">
+							OxygenLive: Obsessed						</option>
+												<option  value="OxygenLive Special:">
+							OxygenLive Special:						</option>
+												<option  value="Photos:">
+							Photos:						</option>
+												<option  value="Running Russell:">
+							Running Russell:						</option>
+												<option  value="Running Russell Simmons:">
+							Running Russell Simmons:						</option>
+												<option  value="shopOholic TV:">
+							shopOholic TV:						</option>
+												<option  value="Snapped:">
+							Snapped:						</option>
+												<option  value="Snow White & the Huntsman:">
+							Snow White & the Huntsman:						</option>
+												<option  value="Sponsored:">
+							Sponsored:						</option>
+												<option  value="sTORIbook Weddings:">
+							sTORIbook Weddings:						</option>
+												<option  value="Style Awards:">
+							Style Awards:						</option>
+												<option  value="SWEEPSTAKES:">
+							SWEEPSTAKES:						</option>
+												<option  value="Tanisha Gets Married:">
+							Tanisha Gets Married:						</option>
+												<option  value="The Face:">
+							The Face:						</option>
+												<option  value="The Glee Project:">
+							The Glee Project:						</option>
+												<option  value="THE GLEE PROJECT: NEW CAST:">
+							THE GLEE PROJECT: NEW CAST:						</option>
+												<option  value="The Janice Dickinson Modeling Agency:">
+							The Janice Dickinson Modeling Agency:						</option>
+												<option  value="The Lorax Movie:">
+							The Lorax Movie:						</option>
+												<option  value="The Next Big Thing: NY:">
+							The Next Big Thing: NY:						</option>
+												<option  value="The Next Glee Star:">
+							The Next Glee Star:						</option>
+												<option  value="The World According to Paris:">
+							The World According to Paris:						</option>
+												<option  value="Tori & Dean:">
+							Tori & Dean:						</option>
+												<option  value="Tori & Dean: Home Sweet Hollywood:">
+							Tori & Dean: Home Sweet Hollywood:						</option>
+												<option  value="Tori & Dean Wedding Special">
+							Tori & Dean Wedding Special						</option>
+												<option  value="VIDEO:">
+							VIDEO:						</option>
+												<option  value="Video:">
+							Video:						</option>
+												<option  value="VOTE:">
+							VOTE:						</option>
+												<option  value="We Bought a Zoo:">
+							We Bought a Zoo:						</option>
+												<option  value="WIN:">
+							WIN:						</option>
+											</select>
 				</div>
 				<div class="form-item show_id-wrapper">
 					<label>Show Id</label> <select name="show-id">
@@ -171,36 +399,62 @@
 			</div>
 		</div>
 		<div class="submit-promo">
-			<input type="submit" value="Save Promo"></input>
+			<input type="submit" value="Save Promo" class="node-save"></input>
 		</div>
 	</form>
 	<div class="preview">
-		<div class="preview-label">Live Preview</div>
-		<img src="images/oxy1.png" />
-	</div>
-</div>
 			</div>
-	<div class="promo-contents"></div>
 </div>
-<div class="dialogboxeshtml" style="display: none">
+						<div class="dialogboxeshtml" style="display: none">
 	<form action="php_ajax_image_upload/scripts/ajaxupload.php"
-		method="post" name="main_image_upload" id="main_image_upload"
+		method="post" name="main_image_upload" id="main_image_upload-1"
 		enctype="multipart/form-data">
 		<p>
-			<input type="file" name="filename" id="main_file_upload" />
+			<input type="file" name="main_filename" />
 		</p>
 		<button
-			onclick="ajaxUpload(this.form,'php_ajax_image_upload/scripts/ajaxupload.php?filename=filename&amp;maxSize=9999999999&amp;maxW=1200&amp;fullPath=http://local.doxy.com/oxypromo//php_ajax_image_upload/uploads/&amp;relPath=../uploads/&amp;colorR=255&amp;colorG=255&amp;colorB=255&amp;maxH=1200','main_image_upload_area','File Uploading Please Wait...&lt;br /&gt;&lt;img src=\'images/loader_light_blue.gif\' width=\'128\' height=\'15\' border=\'0\' /&gt;','&lt;img src=\'images/error.gif\' width=\'16\' height=\'16\' border=\'0\' /&gt; Error in Upload, check settings and path info in source code.'); return false;">Upload
+			onclick="ajaxUpload(this.form,'php_ajax_image_upload/scripts/ajaxupload.php?filename=main_filename&amp;maxSize=9999999999&amp;maxW=1200&amp;fullPath=http://local.doxy.com/oxypromo/php_ajax_image_upload/uploads/&amp;relPath=../uploads/&amp;colorR=255&amp;colorG=255&amp;colorB=255&amp;maxH=1200','main_image_upload_area-1','File Uploading Please Wait...&lt;br /&gt;&lt;img src=\'images/loader_light_blue.gif\' width=\'128\' height=\'15\' border=\'0\' /&gt;','&lt;img src=\'images/error.gif\' width=\'16\' height=\'16\' border=\'0\' /&gt; Error in Upload, check settings and path info in source code.'); return false;">Upload
 			Image</button>
 	</form>
 	<form action="php_ajax_image_upload/scripts/ajaxupload.php"
 		method="post" name="thumbnail_image_upload"
-		id="thumbnail_image_upload" enctype="multipart/form-data">
+		id="thumbnail_image_upload-1" enctype="multipart/form-data">
 		<p>
-			<input type="file" name="filename" id="thumbnail_file_upload" />
+			<input type="file" name="thumbnail_filename" />
 		</p>
 		<button
-			onclick="ajaxUpload(this.form,'php_ajax_image_upload/scripts/ajaxupload.php?filename=filename&amp;maxSize=9999999999&amp;maxW=1200&amp;fullPath=http://local.doxy.com/oxypromo//php_ajax_image_upload/uploads/&amp;relPath=../uploads/&amp;colorR=255&amp;colorG=255&amp;colorB=255&amp;maxH=1200','thumbnail_image_upload_area','File Uploading Please Wait...&lt;br /&gt;&lt;img src=\'images/loader_light_blue.gif\' width=\'128\' height=\'15\' border=\'0\' /&gt;','&lt;img src=\'images/error.gif\' width=\'16\' height=\'16\' border=\'0\' /&gt; Error in Upload, check settings and path info in source code.'); return false;">Upload
+			onclick="ajaxUpload(this.form,'php_ajax_image_upload/scripts/ajaxupload.php?filename=thumbnail_filename&amp;maxSize=9999999999&amp;maxW=1200&amp;fullPath=http://local.doxy.com/oxypromo/php_ajax_image_upload/uploads/&amp;relPath=../uploads/&amp;colorR=255&amp;colorG=255&amp;colorB=255&amp;maxH=1200','thumbnail_image_upload_area-1','File Uploading Please Wait...&lt;br /&gt;&lt;img src=\'images/loader_light_blue.gif\' width=\'128\' height=\'15\' border=\'0\' /&gt;','&lt;img src=\'images/error.gif\' width=\'16\' height=\'16\' border=\'0\' /&gt; Error in Upload, check settings and path info in source code.'); return false;">Upload
+			Image</button>
+	</form>
+	<div class="saving-box">
+		<div class="progress">
+			<div class="bar"></div>
+			<div class="percent">0%</div>
+		</div>
+	</div>
+</div>			</div>
+	<div class="promo-contents"></div>
+	<div class="dialog"></div>
+</div>
+<div class="dialogboxeshtml" style="display: none">
+	<form action="php_ajax_image_upload/scripts/ajaxupload.php"
+		method="post" name="main_image_upload" id="main_image_upload-"
+		enctype="multipart/form-data">
+		<p>
+			<input type="file" name="main_filename" />
+		</p>
+		<button
+			onclick="ajaxUpload(this.form,'php_ajax_image_upload/scripts/ajaxupload.php?filename=main_filename&amp;maxSize=9999999999&amp;maxW=1200&amp;fullPath=http://local.doxy.com/oxypromo/php_ajax_image_upload/uploads/&amp;relPath=../uploads/&amp;colorR=255&amp;colorG=255&amp;colorB=255&amp;maxH=1200','main_image_upload_area-','File Uploading Please Wait...&lt;br /&gt;&lt;img src=\'images/loader_light_blue.gif\' width=\'128\' height=\'15\' border=\'0\' /&gt;','&lt;img src=\'images/error.gif\' width=\'16\' height=\'16\' border=\'0\' /&gt; Error in Upload, check settings and path info in source code.'); return false;">Upload
+			Image</button>
+	</form>
+	<form action="php_ajax_image_upload/scripts/ajaxupload.php"
+		method="post" name="thumbnail_image_upload"
+		id="thumbnail_image_upload-" enctype="multipart/form-data">
+		<p>
+			<input type="file" name="thumbnail_filename" />
+		</p>
+		<button
+			onclick="ajaxUpload(this.form,'php_ajax_image_upload/scripts/ajaxupload.php?filename=thumbnail_filename&amp;maxSize=9999999999&amp;maxW=1200&amp;fullPath=http://local.doxy.com/oxypromo/php_ajax_image_upload/uploads/&amp;relPath=../uploads/&amp;colorR=255&amp;colorG=255&amp;colorB=255&amp;maxH=1200','thumbnail_image_upload_area-','File Uploading Please Wait...&lt;br /&gt;&lt;img src=\'images/loader_light_blue.gif\' width=\'128\' height=\'15\' border=\'0\' /&gt;','&lt;img src=\'images/error.gif\' width=\'16\' height=\'16\' border=\'0\' /&gt; Error in Upload, check settings and path info in source code.'); return false;">Upload
 			Image</button>
 	</form>
 	<div class="saving-box">
@@ -211,4 +465,4 @@
 	</div>
 </div>	</body>
 </html>
-<!-- Page cached by Boost @ 2012-09-08 18:27:57, expires @ 2012-09-08 18:37:57 -->
+<!-- Page cached by Boost @ 2012-09-19 01:09:19, expires @ 2012-09-19 01:19:19 -->

@@ -66,8 +66,8 @@ function saveNode($data) {
 	$defaults = array(
 	    'x'       => $x?$x:0,
 	    'y'       => $y?$y:0,
-	    'width'   => $w ? $w : 50,
-	    'height'  => $h ? $h : 50,
+	    'width'   => $w ? $w : 340,
+	    'height'  => $h ? $h : 312,
 	    'changed' => 1,
   	);
 	
@@ -75,13 +75,31 @@ function saveNode($data) {
 		$main_image = UPLOAD_ROOT.DIRECTORY_SEPARATOR.
 					   basename(str_ireplace("http:/","",
 					   str_replace(".crop_display.jpg","",$main_image)));
+		
 		$file = array(getImageField($main_image, $user->uid));
+		
 		$node->field_promo_main_image = $file;
 		$node->field_promo_main_image[0]['data']['crop'] = $defaults;
 		imagefield_crop_file_insert((object)$file[0]);
+		//print_r($file);
+		$result = _imagefield_crop_resize(imagefield_crop_file_admin_original_path($file[0]),
+                              $defaults,
+                              null,
+                              $file[0]['filepath']);
+        //print_r($result); exit;
 	}  else if($node->field_promo_main_image) {
 		//print_r($node->field_promo_main_image);
-		$node->field_promo_main_image[0]['data']['crop'] = $defaults;
+		$crop = $node->field_promo_main_image[0]['data']['crop'];
+		if(($crop['x'] !=$defaults['x']) || ($crop['y'] !=$defaults['y']) 
+			|| ($crop['width'] !=$defaults['width']) || ($crop['height'] !=$defaults['height']) ) {
+			$node->field_promo_main_image[0]['data']['crop'] = $defaults;
+			$file = $node->field_promo_main_image;
+			$result = _imagefield_crop_resize(imagefield_crop_file_admin_original_path($file[0]),
+                              $defaults,
+                              null,
+                              $file[0]['filepath']);
+		}
+		
 	}
 	if(!empty($thumbnail_image) && $thumbnail_image_changed && $thumbnail_image_changed=="true") {
 		$thumbnail_image = UPLOAD_ROOT.DIRECTORY_SEPARATOR.

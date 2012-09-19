@@ -15,3 +15,11 @@ $GLOBALS['base_path']="/";
 
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
+global $user;
+//print_r($user); exit;
+/*
+if($user->uid==0) {
+	return drupal_access_denied();
+	exit;
+}
+*/

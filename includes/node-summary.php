@@ -1,6 +1,8 @@
 <?php if(!isset($node->nid)): ?>
 	<a href="#node-promo-<?php print $tabid; ?>" 
-	data-tab-id="<?php print $tabid; ?>" data-nid="<?php print $tabid; ?>">Promo <?php print $tabid; ?></a>
+	data-tab-id="<?php print $tabid; ?>" data-nid="<?php print $tabid; ?>">Promo <?php print $tabid; ?>
+	<span title="remove" class="remove-promo"></span>
+	</a>
 <?php else: ?>
 	<?php 
 		$nid = $node->nid;
@@ -26,5 +28,6 @@
 		<?php if($node->scheduler['publish_on']): ?>
 			<span class="summary_time"><?php print date("M d Y h:i:s A",$node->scheduler['publish_on']); ?></span>
 		<?php endif; ?>
+		<span title="remove" class="remove-promo"></span>
 	</a>
 <?php endif; ?>

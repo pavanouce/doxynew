@@ -3,7 +3,11 @@ var savedialogbox;
 var searchdialogbox;
 var tabid;
 var node_data;
+var confirm_dialog_box;
+
+var flag_preview = false;
 $(document).ready(function (loadEvent) {
+	removeActions();
 	initTabs();
 	initDatePickers();
 	initValidation();
@@ -13,6 +17,37 @@ $(document).ready(function (loadEvent) {
 	initSorts();
 	initAddNode();
 });
+function removeActions() {
+	$( "#dialog-confirm" ).dialog({
+		resizable: false,
+		height:140,
+		width:500,
+		modal: true,
+		autoOpen: false,
+		buttons: {
+			"Are you sure you want to remove": function() {
+				var item = $(this).data('link');
+				var count = $('li.list-element').length;
+				if(count > 1) {
+					var data_id = $(item).parent().attr('data-tab-id');
+					$(item).parent().parent().remove();
+					$('div#node-promo-'+data_id).remove();
+				} else {
+					alert("Should have atleast one element");
+				}
+				$( this ).dialog( "close" );
+			},
+			Cancel: function() {
+				$( this ).dialog( "close" );
+			}
+		}
+	});
+	$('span.remove-promo').click(function(clickEvent){
+		clickEvent.preventDefault();
+		$( "#dialog-confirm" ).data('link', this)  // The important part .data() method
+        					  .dialog('open');
+	});
+}
 /*
 function initImageUploaders() {
 	$('button.image_upload_button').click(function(event){
@@ -34,20 +69,60 @@ function initImageUploaders() {
 	});
 }
 */
+
+function openPreviewPage() {
+	var date_val = $('input#promo-list-publish-on').val();
+	//alert(date_val);
+	 if(date_val!="") {
+		 date_ms = Date.parse(date_val);
+		 //alert(date_ms);
+		 date = new Date(date_ms);
+		 //alert(date);
+		 //alert($('input#promo-list-publish-on').datetimepicker('getDate'));
+		 var year = date.getFullYear();
+		 var month = date.getMonth();
+		 var day = date.getDate();
+		 var hours = date.getHours();
+		 var minutes = date.getMinutes();
+		 var seconds = date.getSeconds();
+		 month++;
+		 if(month < 10) {
+			month = "0" + month;
+		 }
+		 if(day < 10) {
+			day = "0" + day;
+		 }
+		 if(hours < 10) {
+			hours = "0" + hours;
+		 }
+		 if(minutes < 10) {
+			minutes = "0" + minutes;
+		 }
+		 if(seconds < 10) {
+			seconds = "0" + seconds;
+		 }
+		 var url = "http://" + window.location.hostname + "/?" 
+		 			+ "future="+ month + "/" + day + "/"+ year + "%20" + hours + ":"
+		 			+ minutes + ":" + seconds;
+		 
+		 window.location.href=url;
+	 } 
+}
+
 function initAddNode() {
 	tabid = parseInt($('input.nodes_count').val());
 	$('li.list-actions').button();
 	$('li.add-new').click(function(clickEvent){
 		tabid++;
 		$.ajax({
-			url:"node_add_service.php?tabid=" + tabid,
+			url:"/oxypromo/node_add_service.php?tabid=" + tabid,
 			type: "GET",
 			dataType: "html",
 			success:function(response) {
 				var new_content = response;
 				$('.promo-node').last().after(new_content);
 				$.ajax({
-					url: "node_summary_service.php?tabid=" + tabid,
+					url: "/oxypromo/node_summary_service.php?tabid=" + tabid,
 					type: "GET",
 					async:false,
 					dataType: "html",
@@ -85,7 +160,7 @@ function initJcrop() {
 					boxWidth: 450, 
 					boxHeight: 400,
 					aspectRatio: 340/312,
-					minSize: [340,312],
+					//minSize: [340,312],
 					onChange: showCoords($(item).parent()),
 					onSelect: showCoords($(item).parent())
 				});
@@ -166,7 +241,7 @@ function addExistingNodeEvent() {
 		searchdialogbox.dialog('close');
 
 		$.ajax({
-			url:"node_add_service.php?nid=" + nid,
+			url:"/oxypromo/node_add_service.php?nid=" + nid,
 			type: "GET",
 			dataType: "html",
 			success:function(response) {
@@ -174,7 +249,7 @@ function addExistingNodeEvent() {
 				$('.promo-node').last().after(new_content);
 				
 				$.ajax({
-					url: "node_summary_service.php?nid=" + nid,
+					url: "/oxypromo/node_summary_service.php?nid=" + nid,
 					type: "GET",
 					async:false,
 					dataType: "html",
@@ -185,6 +260,7 @@ function addExistingNodeEvent() {
 				 var lihtml = '<li class="list-element">' + node_data + '</li>';
 				$('li.list-element').last().after(lihtml);
 				addNodeActions(nid);
+				updatePreview(nid);
 			},
 			error:function(xhr, ajaxOptions, thrownError) {
 				alert("Error Occured Adding...!!");
@@ -207,6 +283,7 @@ function updatePreview(nid) {
 }
 
 function submitHandlers(){
+	
 	var bar = $('.bar');
 	var percent = $('.percent');
 	var status = $('#status');
@@ -217,6 +294,36 @@ function submitHandlers(){
         width: 437,
         height:90
     });
+	$('.list-save').unbind('click');
+	$('.list-save').click(function(clickEvent) {
+		clickEvent.preventDefault();
+		if(!$("#promo-list-form").valid()) {
+			$.jGrowl("Please correct errors on the form" );
+			return false;
+		}
+		savedialogbox.dialog('open');
+		setTimeout('$("#promo-list-form").submit()',1000);
+		
+	});
+	$('input.list-save-preview').unbind('click');
+	$('input.list-save-preview').click(function(clickEvent) {
+		clickEvent.preventDefault();
+		if(!$("#promo-list-form").valid()) {
+			$.jGrowl("Please correct errors on the form" );
+			return false;
+		}
+		savedialogbox.dialog('open');
+		setTimeout('$("#promo-list-form").submit()',1000);
+		flag_preview = true;
+	});
+	/*
+	$('.node-save').click(function(clickEvent) {
+		clickEvent.preventDefault();
+		savedialogbox.dialog('open');
+		var data_nid = $(this).parent().parent().attr('data-nid');
+		setTimeout($("form[data-nid="+data_nid+"]").submit(),1000);
+	});
+	*/
 	$('.promo_list').ajaxForm({
 		dataType: "json",
 		async: false,
@@ -256,6 +363,8 @@ function submitHandlers(){
 			
 			
 			$('li a[data-nid='+old_id+']').parent().html(node_data);
+			$('div#node-promo-'+old_id).attr('data-oldid',old_id);
+			$('div#node-promo-'+old_id).attr('id','node-promo-'+data.nid);
 				//$('li a[data-nid='+old_id+']').attr('data-nid',data.nid);
 			addNodeActions(data.nid);
 			
@@ -270,26 +379,40 @@ function submitHandlers(){
 	$('#promo-list-form').ajaxForm({
 		dataType: "json",
 		beforeSerialize: function($form, options) {
-			savedialogbox.dialog('open');
+			console.log("called");
+			/*
+			if(flag_preview) {
+	        	flag_preview = false;
+	        	openPreviewPage();
+	        	return false;
+	        }
+	        */
+			//savedialogbox.dialog('open');
 			var nids = [];
 			var flag = true;
 	        $('li.list-element').each(function(i, item) {
 	        	var tab_id = $('a',item).attr('data-tab-id');
 	        	$('#node-promo-'+tab_id+" input.node-weight").val(i);
 	        	if($('#node-promo-'+tab_id+" form.promo_list").valid()) {
+	        		//console.log('saving nid ' + tab_id);
 	        		$('#node-promo-'+tab_id+" form.promo_list").submit();
+	        		var nid = $('div[data-oldid='+tab_id+'] input.node-id').val();
+	        		//alert(nid);
+		        	nids.push(nid);
 	        	}  else {
 	        		savedialogbox.dialog('close');
-	        		$.jGrowl("Please correct errors on the form", { theme: 'error' });
 	        		flag = false;
 	        	}
-	        	var nid = $('#node-promo-'+tab_id+" input.node-id").val();
-	        	nids.push(nid);
+	        	
 	        });
 	        if(!flag) {
+	        	$.jGrowl("Please correct errors on the form", { theme: 'error' });
         		return flag;
         	}
-	        $('#promo-list-content-nids').val(nids.join(','));       
+	        //alert(nids);
+	        $('#promo-list-content-nids').val(nids.join(','));     
+	        
+	        
 		},
 	    beforeSend: function() {
 	    	/*
@@ -318,6 +441,7 @@ function submitHandlers(){
 	    	savedialogbox.dialog('close');
 			redirect_url = window.location.protocol + '//' + window.location.host
 			+ "/oxypromo/?nid=" + data.nid;
+			//alert($('#promo-list-content-nids').val());
 			if($('#promo_list_nid').val()=="") {
 				$('#promo_list_nid').val(data.nid);
 				window.location.href = redirect_url;
@@ -325,7 +449,11 @@ function submitHandlers(){
 			}
 			$.jGrowl("List Successfully Saved with id: "+ data.nid + " Redirecting..!");
 			
-			
+			if(flag_preview) {
+	        	flag_preview = false;
+	        	openPreviewPage();
+	        	//return false;
+	        }
 	    },
 		complete: function(xhr) {
 			
@@ -350,6 +478,11 @@ function initImage() {
 }
 
 function initValidation() {
+	/*
+	$.validator.addMethod("unpublish_date", function(value, element) {
+	      
+	});
+	*/
 	$.validator.setDefaults({ ignore: '' });
 	$('.promo-list-form').validate();
 	//var img = $('#image_upload').remove();
@@ -362,55 +495,106 @@ function initTabs() {
 	$('.promos-list').tabs();
 	//$('.new-window-check').button();
 	$('div.submit-promo input').button();
+	$('input.list-save-preview').button();
 }
 
 function initDatePickers() {
-	$('input.edit-publish').datetimepicker({minDate: new Date()});
-	$('input.edit-unpublish').datetimepicker({minDate: new Date()});
-	$('input#promo-list-publish-on').datetimepicker({minDate: new Date()})
-						.change(function(changeEvent) {
-								var self = this;
-								if($(self).val()!="") {
-									$("input.edit-publish").val($(self).val());
-								}
-						});
-	$('input#promo-list-unpublish-on').datetimepicker({minDate: new Date()}).
-						change(function(changeEvent) {
-								var self = this;
-								if($(self).val()!="") {
-									$("input.edit-unpublish").val($(self).val());
-								}
-						});
+	$('input.edit-publish').datetimepicker({
+		//minDate: new Date(),
+		//showSecond: true,
+		//dateFormat: 'yy-mm-dd',
+		//timeFormat: 'hh:mm:ss',
+		hourGrid: 4,
+		minuteGrid: 10,
+		secondGrid: 10,
+		ampm: false
+	});
+	$('input.edit-unpublish').datetimepicker({
+		//minDate: new Date(),
+		//showSecond: true,
+		//dateFormat: 'yy-mm-dd',
+		//timeFormat: 'hh:mm:ss',
+		hourGrid: 4,
+		minuteGrid: 10,
+		secondGrid: 10,
+		ampm: false
+	});
+	$('input#promo-list-publish-on').datetimepicker({
+		//minDate: new Date(),
+		//showSecond: true,
+		//dateFormat: 'yy-mm-dd',
+		//timeFormat: 'hh:mm:ss',
+		hourGrid: 4,
+		minuteGrid: 10,
+		secondGrid: 10,
+		ampm: false
+	})
+	.change(function(changeEvent) {
+			var self = this;
+			if($(self).val()!="") {
+				$("input.edit-publish").each(function(i, item) {
+					if($(item).attr('data-value') != "true") {
+						$(item).val($(self).val());
+					}
+				});
+				
+			}
+	});
+	$('input#promo-list-unpublish-on').datetimepicker({
+		//minDate: new Date(),
+		//showSecond: true,
+		//dateFormat: 'yy-mm-dd',
+		//timeFormat: 'hh:mm:ss',
+		hourGrid: 4,
+		minuteGrid: 10,
+		secondGrid: 10,
+		ampm: false
+	}).
+	change(function(changeEvent) {
+			var self = this;
+			if($(self).val()!="") {
+				$("input.edit-unpublish").each(function(i, item) {
+					if($(item).attr('data-value') != "true") {
+						$(item).val($(self).val());
+					}
+				});
+				
+			}
+	});
 }
 
 function uploadActions(element) {
+	//console.log(element);
 	imagedialogbox.dialog('close');
 	var $parent_element = $('#'+element).parent();
 	//$(".crop-info", $parent_element).show();
+	var elem = $('#'+element);
+	//console.log(elem.html());
 	if(element.indexOf("thumbnail")==-1) {
-		$('#'+element+' img').Jcrop({
+		$('img',elem).Jcrop({
 			boxWidth: 450, boxHeight: 400,
-			minSize:[340,312],
-			aspectRatio: 340/312,
-			onChange: showCoords,
-			onSelect: showCoords
+			//minSize:[340,312],
+			aspectRatio: 340/312, 
+			onChange: showCoords($parent_element),
+			onSelect: showCoords($parent_element)
 		});
 	} else {
-		
-		$('#'+element+' img').Jcrop({
+		$('img',elem).Jcrop({
 			boxWidth: 450, boxHeight: 400,
 			onChange: showCoords($parent_element),
 			onSelect: showCoords($parent_element)
 		});
 	}
+	
+	//console.log($('.main_image',elem).attr('class'));
 	$('input[data-id="' + element + '"]').val($('#'+element+' img').attr('src'));
+	//console.log(element);
 	$('input[data-value-id="' + element + '"]').val("true");
 }
 
 function showCoords(item)
 {
 	return function(c) {
-		
 		//if($(item).attr('id').indexOf('thumbnail')==-1) 
 		$('.x1_area input',item).val(parseInt(c.x));
 		$('.y1_area input',item).val(parseInt(c.y));
@@ -478,4 +662,6 @@ function addNodeActions(nid) {
 	$('input#promo-list-publish-on').change();
 	$('input#promo-list-unpublish-on').change();
 	//initSorts();
+
+	removeActions();
 }

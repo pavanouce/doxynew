@@ -8,7 +8,7 @@
 	$content_nids = "";
 	$publish_on = "";
 	$unpublish_on = "";
-	$format = "Y-m-d H:i:s";
+	$format = "m/d/Y H:i";
 	$title = "";
 	if(isset($node->nid)) {
 		$nid = $node->nid;
@@ -44,7 +44,7 @@
 				<input type="text" name="promo-list-unpublish-on"
 				value="<?php print $unpublish_on; ?>" id="promo-list-unpublish-on"></input>
 			</div>
-			
+			<input type="submit" class="list-save-preview" value="Save and preview"></input>
 		</form>
 	<div class="promos-list">
 		
@@ -96,6 +96,7 @@
 	</div>
 	<div class="promo-contents"></div>
 	<div class="dialog"></div>
+	<div id="dialog-confirm"></div>
 </div>
 <?php include 'includes/images_uploader.php'; ?>
 <?php include 'includes/footer.php'; ?>
