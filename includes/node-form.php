@@ -111,6 +111,11 @@ if(isset($node->nid)) {
 	// Promo type, show id, main image, thumbnail image
 }
 
+if($clone) {
+	$data_nid = $data_tab_id;
+	$nid = "";
+	$node_num = $data_tab_id;
+}
 ?>
 <div id="node-promo-<?php print $node_num; ?>" class="promo-node">
 	<form data-nid="<?php print $data_nid; ?>"

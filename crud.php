@@ -54,7 +54,7 @@
 				<li class="list-element">
 					<?php $node = new stdClass(); ?>
 					<?php print render_file('includes'.DIRECTORY_SEPARATOR.'node-summary.php', 
-						array('node'=>$node,'tabid'=>1)); ?>
+						array('node'=>$node,'tabid'=>1,'clone'=>false)); ?>
 				</li>
 				<li class="list-actions add-existing">
 					<span title="Add another promo" class="list-add"></span>
@@ -76,7 +76,8 @@
 			<?php foreach($nodes as $node): ?>
 			<?php $nid = $node->nid; ?>
 				<li class="list-element">
-					<?php print render_file('includes'.DIRECTORY_SEPARATOR.'node-summary.php', array('node'=>$node)); ?>
+					<?php print render_file('includes'.DIRECTORY_SEPARATOR.'node-summary.php', 
+					array('node'=>$node,'tabid'=>$node->nid, 'clone'=>false)); ?>
 				 </li>
 			<?php endforeach; ?>
 				<li class="list-actions add-existing">

@@ -2,8 +2,9 @@
 	require 'bootstrap.php';
 	if(isset($_GET['nid'])) {
 		$node = node_load($_GET['nid']);	
+		$tab_id = $_GET['tabid'];
 		print render_file('includes/node-form.php', 
-		array('node' => $node,'data_nid'=>$node->nid,'data_tab_id'=>$node->nid)); 
+		array('node' => $node,'data_nid'=>$node->nid,'data_tab_id'=>$tab_id,'clone'=>true)); 
 	}
 	else {
 		$tab_id = $_GET['tabid'];

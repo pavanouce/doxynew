@@ -219,8 +219,9 @@ function initSearch() {
 			
 			$(".message").html("Loading search..!!");
 			var searchhtml = ""; 
+			var randomnumber=Math.floor(Math.random()*11);
 			$.ajax({
-				url:"/promo_list/nodes/search/" + term,
+				url:"/promo_list/nodes/search/" + term+"?"+randomnumber,
 				dataType: "json",
 				success:function(data) {
 					if(data.length== 0) {
@@ -259,9 +260,9 @@ function addExistingNodeEvent() {
 	$("button.add").click(function(clickEvent) {
 		var nid = $(this).attr("data-nid");
 		searchdialogbox.dialog('close');
-
+		tabid++;
 		$.ajax({
-			url:"/oxypromo/node_add_service.php?nid=" + nid,
+			url:"/oxypromo/node_add_service.php?nid=" + nid + "&tabid=" +tabid,
 			type: "GET",
 			dataType: "html",
 			success:function(response) {
@@ -269,7 +270,7 @@ function addExistingNodeEvent() {
 				$('.promo-node').last().after(new_content);
 				
 				$.ajax({
-					url: "/oxypromo/node_summary_service.php?nid=" + nid,
+					url: "/oxypromo/node_summary_service.php?nid=" + nid + "&tabid=" +tabid,
 					type: "GET",
 					async:false,
 					dataType: "html",
@@ -372,7 +373,7 @@ function submitHandlers(){
 			$form.attr('data-nid',data.nid);
 			
 			$.ajax({
-				url: "node_summary_service.php?nid=" + data.nid,
+				url: "node_summary_service.php?nid=" + data.nid + "&tab=" + data.nid + "&clone=true",
 				type: "GET",
 				async:false,
 				dataType: "html",

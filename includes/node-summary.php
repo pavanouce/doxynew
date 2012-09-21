@@ -17,8 +17,11 @@
 			  				'/imagecache/promo_image_thumbnail/'.
 			  				$node->field_image_promo[0]['filename'];
 		}
-		
+		if($clone) {
+			$nid = $tabid;
+		}	
 	 ?>
+	 
 	<a data-nid="<?php print $nid; ?>" data-tab-id="<?php print $nid; ?>"
 				 href="#node-promo-<?php print $nid; ?>">
 		<span class="node-title"><?php print substr($node->title,0,10); ?></span>
