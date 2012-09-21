@@ -70,7 +70,7 @@ function saveNode($data) {
 	    'height'  => $h ? $h : 312,
 	    'changed' => 1,
   	);
-	
+	$scale = array('width'=>340,'height'=>312);
 	if(!empty($main_image) && $main_image_changed && $main_image_changed=="true") {
 		$main_image = UPLOAD_ROOT.DIRECTORY_SEPARATOR.
 					   basename(str_ireplace("http:/","",
@@ -82,9 +82,10 @@ function saveNode($data) {
 		$node->field_promo_main_image[0]['data']['crop'] = $defaults;
 		imagefield_crop_file_insert((object)$file[0]);
 		//print_r($file);
+		
 		$result = _imagefield_crop_resize(imagefield_crop_file_admin_original_path($file[0]),
                               $defaults,
-                              null,
+                              $scale,
                               $file[0]['filepath']);
         //print_r($result); exit;
 	}  else if($node->field_promo_main_image) {
@@ -96,7 +97,7 @@ function saveNode($data) {
 			$file = $node->field_promo_main_image;
 			$result = _imagefield_crop_resize(imagefield_crop_file_admin_original_path($file[0]),
                               $defaults,
-                              null,
+                              $scale,
                               $file[0]['filepath']);
 		}
 		

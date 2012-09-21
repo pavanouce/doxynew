@@ -1,16 +1,32 @@
+span.node-title {float: left;
+    width: 114px;}
+.promo-short-desc-wrapper textarea {width:400px; height:80px;}
+#promo-list-publish-on {
+	 position: relative; z-index: 9999 !important;
+}
 .show_id-wrapper {
 	display:none;		
 }
 .show-css-wrapper {
 	display:none;
 }
-.remove-promo {width:16px; height:16px;background:url('/oxypromo/images/remove_icon.jpg');
-	display:inline-block;
-	background-size:16px 16px;
-	position: relative;
+.remove-promo {  
+	background-attachment: scroll;
+    background-clip: border-box;
+    background-color: transparent;
+    background-image: url("/oxypromo/images/remove_icon.jpg");
+    background-origin: padding-box;
+    background-position: 0 0;
+    background-repeat: repeat;
+    background-size: 16px 16px;
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+    height: 16px;
+    left: 13px;
+    margin-left: 5px;
+    position: relative;
     width: 16px;
-    margin-left:5px;
-    cursor:pointer;
 }
 .image_summary {width:20px;height:20px;}
 .preview {width:620px;border:1px black solid; overflow:hidden;
@@ -98,7 +114,7 @@ li.list-actions span.list-save {
 .promos-list .tabs .ui-tabs-nav  {width:auto;position:relative;height: 48px;}
 .promos-list .tabs .ui-tabs-nav ul {position:relative;}
 .promos-list .tabs .ui-tabs-nav li {width:auto;margin-top:0em;}
-.promos-list  .ui-tabs-nav li a { text-align:center; width:135px; font-size: 15px;cursor:pointer; }
+.promos-list  .ui-tabs-nav li a { text-align:center; width:160px; font-size: 15px;cursor:pointer; }
 
 
 .promos-list .ui-tabs-nav li {

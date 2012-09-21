@@ -152,9 +152,9 @@ if(isset($node->nid)) {
 						value="<?php print $promo_link_text; ?>" name="promo-link-text"></input>
 				</div>
 				<div class="form-item promo-short-desc-wrapper">
-					<label>Short Description</label> <input type="text"
-						value="<?php print $short_desc; ?>" 
-						name="promo-short-desc"></input>
+					<label>Short Description</label> 
+					<textarea type="text"
+						name="promo-short-desc"><?php print $short_desc; ?></textarea>
 				</div>
 				<div class="form-item promo-tunein-text-wrapper">
 					<label>Tune in Text</label> <input type="text" 
