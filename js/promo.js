@@ -132,7 +132,7 @@ function initAddNode() {
 				});
 				 var lihtml = '<li class="list-element">'+node_data+'</li>';
 				$('li.list-element').last().after(lihtml);
-				addNodeActions(tabid);
+				addNodeActions(tabid, true);
 			},
 			error:function(xhr, ajaxOptions, thrownError) {
 				alert("Error Occured Adding...!!");
@@ -160,11 +160,11 @@ function initJcrop(nid) {
 	*/
 	var ref;
 	if(nid) {
-		selector = '#node-promo'+nid+' .image_area';
+		selector = '#node-promo-'+nid+' .image_area';
 	} else {
 		selector = '.image_area';
 	}
-	
+	//alert(selector);
 	$(selector).each(function(i, item) {
 		if($('img.main_image',item).attr('src')!="") {
 			$parent_element = $(item).parent();
@@ -280,7 +280,9 @@ function addExistingNodeEvent() {
 				});
 				 var lihtml = '<li class="list-element">' + node_data + '</li>';
 				$('li.list-element').last().after(lihtml);
-				addNodeActions(nid);
+				$('#node-promo-'+tabid+' input[name="main-image-field-changed"]').val("true");
+				$('#node-promo-'+tabid+' input[name="thumbnail-image-field-changed"]').val("true");
+				addNodeActions(tabid, false);
 				updatePreview(nid);
 			},
 			error:function(xhr, ajaxOptions, thrownError) {

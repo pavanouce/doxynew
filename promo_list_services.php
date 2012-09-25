@@ -38,6 +38,7 @@ function saveNode($data) {
     $node->title = $promo_title;
     $node->name = $user->name;
     $node->title = $title;
+    $node->old_content_nids = $node->content_nids; 
     $node->content_nids = $content_nids;
 
 	$node->publish_on = $publish;

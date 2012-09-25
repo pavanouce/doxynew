@@ -38,7 +38,7 @@ function saveNode($data) {
 	$publish = strtotime(getValueFromRequest('publish'));
 	$unpublish = strtotime(getValueFromRequest('unpublish'));
 	$url_link = getValueFromRequest('url-link');
-	$url_link_new =  getValueFromRequest('url-link');
+	$url_link_new =  getValueFromRequest('url-link-new');
 	$seo = getValueFromRequest('seo');
 	$nid = getValueFromRequest('nid');
    
@@ -72,10 +72,13 @@ function saveNode($data) {
   	);
 	$scale = array('width'=>340,'height'=>312);
 	if(!empty($main_image) && $main_image_changed && $main_image_changed=="true") {
-		$main_image = UPLOAD_ROOT.DIRECTORY_SEPARATOR.
+		if(stristr($main_image,"sites/default/files")) {
+			 $main_image = FILE_ROOT.DIRECTORY_SEPARATOR.basename($main_image);
+		} else {
+			$main_image = UPLOAD_ROOT.DIRECTORY_SEPARATOR.
 					   basename(str_ireplace("http:/","",
 					   str_replace(".crop_display.jpg","",$main_image)));
-		
+		}
 		$file = array(getImageField($main_image, $user->uid));
 		
 		$node->field_promo_main_image = $file;
@@ -103,14 +106,19 @@ function saveNode($data) {
 		
 	}
 	if(!empty($thumbnail_image) && $thumbnail_image_changed && $thumbnail_image_changed=="true") {
-		$thumbnail_image = UPLOAD_ROOT.DIRECTORY_SEPARATOR.
-					   basename(str_ireplace("http:/","",$thumbnail_image));
+		if(stristr($thumbnail_image,"sites/default/files")) {
+			 $thumbnail_image = FILE_ROOT.DIRECTORY_SEPARATOR.basename($thumbnail_image);
+		} else {
+			$thumbnail_image = UPLOAD_ROOT.DIRECTORY_SEPARATOR.
+					   basename(str_ireplace("http:/","",$thumbnail_image));	
+		}
+		
 		$node->field_image_promo = array(getImageField($thumbnail_image, $user->uid));
 	}
 	if($node->field_image_promo) {
 		$node->field_image_promo[0]['data']['focus_rect'] = implode(',',array($tx1,$ty1,$tx2,$ty2));
 	}
-	
+	//print_r($node); exit;
 	$node->type = 'promo_homepage'; 
     $node->uid = $user->uid;
     $node->status = 1;
@@ -122,7 +130,7 @@ function saveNode($data) {
 	$node->field_promo_link_url = Array(Array(
                     'url' => $url_link,
                     'title' => '', 
-                    'attributes' => Array('target' => ($url_link_new == 'on')?'':'_blank')));
+                    'attributes' => Array('target' => ($url_link_new == 'on')?'_blank':'')));
     $node->field_promo_order = Array(Array('value' => $weight));
     $node->field_promo_sub_header = Array(Array('value' => $sub_header_title));
     $node->field_promo_title = Array(Array('value' => $seo));

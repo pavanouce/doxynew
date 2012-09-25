@@ -222,7 +222,8 @@ if($clone) {
 				<input
 					data-id="thumbnail_image_upload_area-<?php print $data_tab_id; ?>"
 					class="thumbnail-image-field" type="hidden"
-					name="thumbnail-image-field" value="" /> <input
+					name="thumbnail-image-field" value="<?php echo $thumbnail_image_src; ?>" /> 
+				<input
 					data-value-id="thumbnail_image_upload_area-<?php print $data_tab_id; ?>"
 					type="hidden" name="thumbnail-image-field-changed" value="false" />
 				<div class="image_area" id="thumbnail_image_upload_area-<?php print $node_num; ?>">
