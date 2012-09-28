@@ -116,7 +116,9 @@ function saveNode($data) {
 		$node->field_image_promo = array(getImageField($thumbnail_image, $user->uid));
 	}
 	if($node->field_image_promo) {
-		$node->field_image_promo[0]['data']['focus_rect'] = implode(',',array($tx1,$ty1,$tx2,$ty2));
+		$twidth = $tx2-$tx1;
+		$height = $ty2-$ty1;
+		$node->field_image_promo[0]['data']['focus_rect'] = implode(',',array($tx1,$ty1,$twidth,$height));
 	}
 	//print_r($node); exit;
 	$node->type = 'promo_homepage'; 

@@ -36,6 +36,7 @@ $thumbnail_image_width = 0;
 $thumbnail_image_height = 0;
 $weight = 0;
 if(isset($node->nid)) {
+	//print_r($node); exit;
 	$nid = $node->nid;
 	$node_num = $nid;
 	$promo_title = $node->title;
@@ -52,7 +53,7 @@ if(isset($node->nid)) {
 	$promo_type= $node->field_promo_type[0]['value'];
 	$show_id = "";
 	$show_css = $node->field_show_css[0]['value'];
-	$url_new_window = ($node->field_promo_link_url[0]['attributes']['target'] == '_blank');
+	$url_new_window = stristr($promo_node->field_promo_link_url[0]['attributes']['target'],'_blank');
 	$weight = $node->field_promo_order[0]['value'];
 	//print_r($node); exit;
 	$main_image = $node->field_promo_main_image;
@@ -73,10 +74,17 @@ if(isset($node->nid)) {
 			//print_r($crop_info); exit;
 			$thumbnail_image_x1 = $crop_info[0];
 			$thumbnail_image_y1 = $crop_info[1];
-			$thumbnail_image_x2 = $crop_info[2];
-			$thumbnail_image_y2 = $crop_info[3];
-			$thumbnail_image_width = $thumbnail_image_x2-$thumbnail_image_x1;
-			$thumbnail_image_height = $thumbnail_image_y2-$thumbnail_image_y1;
+			$thumbnail_image_width = $crop_info[2];
+			$thumbnail_image_height = $crop_info[3];
+			
+			$thumbnail_image_x2 = $thumbnail_image_width + $thumbnail_image_x1;
+			$thumbnail_image_y2 = $thumbnail_image_height +$thumbnail_image_y1;
+
+			
+			//$thumbnail_image_x2 = $crop_info[2];
+			//$thumbnail_image_y2 = $crop_info[3];
+			//$thumbnail_image_width = $thumbnail_image_x2-$thumbnail_image_x1;
+			//$thumbnail_image_height = $thumbnail_image_y2-$thumbnail_image_y1;
 		}
 		
 	}
