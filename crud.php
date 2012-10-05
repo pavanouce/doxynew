@@ -39,12 +39,18 @@
 					value="<?php print $publish_on; ?>" id="promo-list-publish-on"></input>
 			</div>
 			
+			<div class="form-item promo-list-aply-wrapper">
+				<input type="submit" name="promo-list-apply" title="Apply the date to all the items in the list"
+					value="Apply" id="promo-list-apply"></input>
+			</div>
+			
 			<div class="form-item promo-list-unpublish-on-wrapper">
 				<label class="promo-list-title">Scheduled Unpublish</label>
 				<input type="text" name="promo-list-unpublish-on"
 				value="<?php print $unpublish_on; ?>" id="promo-list-unpublish-on"></input>
 			</div>
-			<input type="submit" class="list-save-preview" value="Save and preview"></input>
+			<input type="submit" title="Save and Preview" class="list-save-preview" value="Save and preview"></input>
+			<input type="submit" title="View Old Promo Nodes" class="list-view-old" value="View Existing"></input>
 		</form>
 	<div class="promos-list">
 		
@@ -56,12 +62,12 @@
 					<?php print render_file('includes'.DIRECTORY_SEPARATOR.'node-summary.php', 
 						array('node'=>$node,'tabid'=>1,'clone'=>false)); ?>
 				</li>
-				<li class="list-actions add-existing">
-					<span title="Add another promo" class="list-add"></span>
+				<li title="Add existing promo" class="list-actions add-existing">
+					<span lass="list-add"></span>
 					<span class="label">Add Existing</span>
 				</li>
-				<li class="list-actions add-new">
-					<span title="Add another promo" class="list-add"></span>
+				<li title="Add new promo" class="list-actions add-new">
+					<span class="list-add"></span>
 					<span class="label">Add New</span>
 				</li>
 			</ul>
@@ -98,6 +104,17 @@
 	<div class="promo-contents"></div>
 	<div class="dialog"></div>
 	<div id="dialog-confirm"></div>
+	<div class="old-promo-dialog">
+		<div class="search-fields">
+			<input type="text" class="search-list-date"></input>
+			<input type="submit" value="Search" class="search-old-promo"></input>
+		</div>
+		<div class="results-container">
+			<div class="message"></div>
+			<table class="results-table">
+			</table>
+		</div>
+	</div>
 </div>
 <?php include 'includes/images_uploader.php'; ?>
 <?php include 'includes/footer.php'; ?>

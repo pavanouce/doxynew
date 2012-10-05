@@ -326,7 +326,7 @@ if($clone) {
 			</div>
 		</div>
 		<div class="submit-promo">
-			<input type="submit" value="Save Promo" class="node-save"></input>
+			<input type="submit" title="Save this Promo" value="Save Promo" class="node-save"></input>
 		</div>
 	</form>
 	<div class="preview">

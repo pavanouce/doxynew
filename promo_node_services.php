@@ -52,6 +52,11 @@ function saveNode($data) {
 	$tx2 = getValueFromRequest('tx2');
 	$ty2 = getValueFromRequest('ty2');
 	
+	$tx1 = $tx1?$tx1:0;
+	$ty1 = $ty1?$ty1:0;
+	$tx2 = $tx2?$tx2:0;
+	$ty2 = $ty2?$ty2:0;
+	
 	$weight = getValueFromRequest('weight');
 	
 	

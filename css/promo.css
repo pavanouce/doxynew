@@ -1,8 +1,18 @@
+.promo-list-form .form-item.promo-list-aply-wrapper {
+	width:125px;
+}
+.results-table .title {
+	width:150px; padding:10px;
+	}
+.old-promo-dialog {
+	display:none;
+}
+.ui-dialog-title {text-align:center;}
 span.node-title {float: left;
     width: 114px;}
 .promo-short-desc-wrapper textarea {width:400px; height:80px;}
-#promo-list-publish-on {
-	 position: relative; z-index: 9999 !important;
+#promo-list-publish-on, #promo-list-unpublish-on  {
+	 position: relative; z-index: 1002 !important;
 }
 .show_id-wrapper {
 	display:none;		
